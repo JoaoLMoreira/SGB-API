@@ -4,10 +4,10 @@ namespace SgbProject.Services
 {
     public interface IUsuariosService
     {
-        Task<List<Usuario>> GetAll();
-        Task<Usuario> GetById(Guid id);
-        Task<Usuario> Add(Usuario usuario);
-        Task<Usuario> Update(Usuario usuario, Guid id);
-        Task<Usuario> Delete(Guid id);
+        IEnumerable<Usuario> GetAllUsuarios();
+        Usuario GetById(Guid id);
+        Usuario Add(Usuario usuario);
+        Usuario Update(Usuario usuario);
+        Usuario Delete(Guid id);
     }
 }

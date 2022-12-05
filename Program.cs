@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using SgbProject.Data;
 using SgbProject.Models;
 using SgbProject.Repositories;
@@ -13,10 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<Context>();
-builder.Services.AddScoped<IBaixasServices, BaixasService>();
-builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IRepository<Bovino>, BovinosRepository>();
 builder.Services.AddScoped<IRepository<Baixa>, BaixaRepository>();
+builder.Services.AddScoped<IRepository<Usuario>, UsuariosRepository>();
+
+builder.Services.AddScoped<IBaixasServices, BaixasService>();
 
 builder.Services.AddScoped<IBovinosService, BovinosService>(bs =>
 {
@@ -25,6 +27,13 @@ builder.Services.AddScoped<IBovinosService, BovinosService>(bs =>
 
     return new BovinosService(baixaRepository, bovinoRepository);
 });
+builder.Services.AddScoped<IUsuariosService, UsuariosService>(us =>
+{
+    var usuariosRepository = us.GetRequiredService<IRepository<Usuario>>();
+    return new UsuariosService(usuariosRepository);
+});
+
+
 
 builder.Services.AddDbContext<Context>(options =>
 options.UseSqlServer("server=.\\SQLEXPRESS;database=SGB;trusted_connection=true;"));

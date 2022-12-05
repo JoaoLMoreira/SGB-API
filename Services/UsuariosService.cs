@@ -1,74 +1,53 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SgbProject.Data;
 using SgbProject.Models;
+using SgbProject.Repositories;
 
 namespace SgbProject.Services
 {
-    public class UsuariosService: IUsuariosService
+    public class UsuariosService : IUsuariosService
     {
-        private readonly Context Contexto;
+        private readonly IRepository<Usuario> _usuarioRepository;
 
-        public UsuariosService(Context contexto)
+        public UsuariosService(IRepository<Usuario> usuarioRepository)
         {
-            this.Contexto = contexto;
-        }
-
-        public async Task<List<Usuario>> GetAll()
-        {
-            var usuario = await Contexto.Usuarios.ToListAsync();
-            return (usuario);
-        }
-
-        public async Task<Usuario> GetById(Guid id)
-        {
-            var usuario = await Contexto.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
-            return (usuario);
+            _usuarioRepository = usuarioRepository;
         }
 
 
-        public async Task<Usuario> Add(Usuario usuario)
+        public IEnumerable<Usuario> GetAllUsuarios()
+        {
+            return _usuarioRepository.GetAll();
+        }
+
+        public Usuario GetById(Guid id)
+        {
+            return _usuarioRepository.GetById(id);
+        }
+
+
+        public Usuario Add(Usuario usuario)
         {
             usuario.Id = Guid.NewGuid();
-            await Contexto.Usuarios.AddAsync(usuario);
-            await Contexto.SaveChangesAsync();
+            var usuarioadicionado = _usuarioRepository.Add(usuario);
+            _usuarioRepository.SaveChanges();
+            return (usuarioadicionado);
+        }
 
+
+        public Usuario Update(Usuario usuario)
+        {
+            var novousuario = _usuarioRepository.Update(usuario);
+            _usuarioRepository.SaveChanges();
+            return (novousuario);
+        }
+
+        public Usuario Delete(Guid id)
+        {
+            var usuario = _usuarioRepository.GetById(id);
+            _usuarioRepository.Remove(usuario);
+            _usuarioRepository.SaveChanges();
             return (usuario);
-
-
-        }
-
-
-        public async Task<Usuario> Update(Usuario usuario, Guid id)
-        {
-            var usuarioExistente = await Contexto.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
-
-            usuarioExistente.NomeUsuario = usuario.NomeUsuario;
-            usuarioExistente.Senha = usuario.Senha;
-            usuarioExistente.Nome = usuario.Nome;
-            usuarioExistente.Email = usuario.Email;
-
-            await Contexto.SaveChangesAsync();
-            return (usuarioExistente);
-
-        }
-
-
-        public async Task<Usuario> Delete(Guid id)
-        {
-            var UsuarioExistente = await Contexto.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
-            if (UsuarioExistente != null)
-            {
-                Contexto.Remove(UsuarioExistente);
-                await Contexto.SaveChangesAsync();
-                return (UsuarioExistente);
-            }
-            else
-            {
-                return (null);
-            }
-
-
-
 
         }
     }

@@ -27,12 +27,18 @@ namespace SgbProject.Services
 
         public Bovino AddBovino(Bovino bovino)
         {
-            return _bovinoRepository.Add(bovino);
+            bovino.Id = Guid.NewGuid();
+            var bovinoadicionado = _bovinoRepository.Add(bovino);
+            _bovinoRepository.SaveChanges();
+            return (bovinoadicionado);
         }
 
         public Bovino UpdateBovino(Bovino bovino)
         {
-            return _bovinoRepository.Update(bovino);
+            var novobovino = _bovinoRepository.Update(bovino);
+            _bovinoRepository.SaveChanges();
+            return (novobovino);
+
         }
         public RemoveBovinoRequest Delete(RemoveBovinoRequest request)
         {
@@ -58,20 +64,20 @@ namespace SgbProject.Services
                 };
 
 
-            //var baixa = new Baixa(bovinoExistente, ((eMotivo)request.Motivo).ToString());
-            _baixaRepository.Add(baixa);
-            _bovinoRepository.Remove(bovinoExistente);
-            _baixaRepository.SaveChanges();
-            _bovinoRepository.SaveChanges();
-            return (request);
-        }
+                //var baixa = new Baixa(bovinoExistente, ((eMotivo)request.Motivo).ToString());
+                _baixaRepository.Add(baixa);
+                _bovinoRepository.Remove(bovinoExistente);
+                _baixaRepository.SaveChanges();
+                _bovinoRepository.SaveChanges();
+                return (request);
+            }
             else
             {
                 return (null);
             }
 
 
-}
+        }
 
 
     }

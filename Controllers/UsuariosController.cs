@@ -18,9 +18,9 @@ namespace SgbProject.Controllers
         }
 
         [HttpGet]
-        public Task<List<Usuario>> GetAllUsuarios()
+        public IEnumerable<Usuario> GetAllUsuarios()
         {
-            var usuario = _usuariosService.GetAll();
+            var usuario = _usuariosService.GetAllUsuarios();
             return (usuario);
         }
 
@@ -28,22 +28,21 @@ namespace SgbProject.Controllers
         [Route("{id:guid}")]
         public async Task<Usuario> GetUsuario([FromRoute] Guid id)
         {
-            var usuario = await _usuariosService.GetById(id);
+            var usuario =  _usuariosService.GetById(id);
             return (usuario);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddUsuario([FromBody] Usuario Usuario)
         {
-            var newusuario = await _usuariosService.Add(Usuario);
+            var newusuario =  _usuariosService.Add(Usuario);
             return Ok(newusuario);
         }
 
         [HttpPut]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateUsuario([FromRoute] Guid id, [FromBody] Usuario Usuario)
+        public async Task<IActionResult> UpdateUsuario([FromBody] Usuario Usuario)
         {
-            var newusuario = await _usuariosService.Update(Usuario, id);
+            var newusuario =  _usuariosService.Update(Usuario);
             return Ok(newusuario);
         }
 
@@ -51,7 +50,7 @@ namespace SgbProject.Controllers
         [Route("{id:guid}")]
         public async Task<ActionResult> DeletUsuario([FromRoute] Guid id)
         {
-            var newusuario = await _usuariosService.Delete(id);
+            var newusuario =  _usuariosService.Delete(id);
             return Ok(newusuario);
         }
 
