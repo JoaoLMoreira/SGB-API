@@ -2,7 +2,7 @@
 using SgbProject.Models;
 using SgbProject.Repositories;
 
-namespace SgbProject.Service
+namespace SgbProject.Services
 {
     public interface IBovinosService
     {

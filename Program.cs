@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SgbProject.Data;
 using SgbProject.Models;
 using SgbProject.Repositories;
-using SgbProject.Service;
+using SgbProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<Context>();
+builder.Services.AddScoped<IBaixasServices, BaixasService>();
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IRepository<Bovino>, BovinosRepository>();
 builder.Services.AddScoped<IRepository<Baixa>, BaixaRepository>();

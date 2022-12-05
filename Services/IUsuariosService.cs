@@ -1,6 +1,6 @@
 ﻿using SgbProject.Models;
 
-namespace SgbProject.Service
+namespace SgbProject.Services
 {
     public interface IUsuariosService
     {

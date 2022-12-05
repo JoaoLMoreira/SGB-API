@@ -2,7 +2,7 @@
 {
     public enum eGenero
     {
-        macho,
-        femea
+        femea,
+        macho
     }
 }

@@ -2,7 +2,7 @@
 using SgbProject.Data;
 using SgbProject.Models;
 
-namespace SgbProject.Service
+namespace SgbProject.Services
 {
     public class UsuariosService: IUsuariosService
     {

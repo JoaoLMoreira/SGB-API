@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SgbProject.Data;
 using SgbProject.Models;
-using SgbProject.Service;
+using SgbProject.Services;
 
 namespace SgbProject.Controllers
 {
