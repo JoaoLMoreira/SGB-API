@@ -2,9 +2,8 @@
 using SgbProject.Data;
 using SgbProject.Enums;
 using SgbProject.Models;
-using SgbProject.Repositories;
 
-namespace SgbProject.Service
+namespace SgbProject.Repositories
 {
     public class BovinosRepository : GenericRepository<Bovino>
     {

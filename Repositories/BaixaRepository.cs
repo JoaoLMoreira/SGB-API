@@ -1,8 +1,7 @@
 ﻿using SgbProject.Data;
 using SgbProject.Models;
-using SgbProject.Repositories;
 
-namespace SgbProject.Service
+namespace SgbProject.Repositories
 {
     public class BaixaRepository : GenericRepository<Baixa>
     {
